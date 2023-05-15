@@ -11,7 +11,6 @@ class BST:
 
     def build_from_array(self, arr):
         sorted_arr = sorted([i for i in arr if i != 0], reverse=True)
-        print(sorted_arr)
         self.root = self.reconstruct_tree(arr)
         self.inorder_traversal(self.root, sorted_arr)
 
