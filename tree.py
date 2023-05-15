@@ -1,8 +1,8 @@
 class Node:
-    def __init__(self, value):
+    def __init__(self, value, left=None, right=None):
         self.value = value
-        self.left = None
-        self.right = None
+        self.left = left
+        self.right = right
 
 
 class BST:
@@ -10,10 +10,18 @@ class BST:
         self.root = None
 
     def build_from_array(self, arr):
-        sorted_arr = sorted(arr)
-        for value in sorted_arr:
-            if value != 0:
-                self.insert(value)
+        sorted_arr = sorted([i for i in arr if i != 0])
+        self.root = self._build_tree(sorted_arr, 0, len(sorted_arr) - 1)
+
+    def _build_tree(self, arr, start, end):
+        if start > end:
+            return None
+
+        middle = (start + end) // 2
+        leftTree = self._build_tree(arr, start, middle - 1)
+        rightTree = self._build_tree(arr, middle + 1, end)
+
+        return Node(arr[middle], leftTree, rightTree)
 
     def insert(self, value):
         if self.root is None:
